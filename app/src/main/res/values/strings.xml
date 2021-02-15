@@ -1,0 +1,133 @@
+<resources>
+    <string name="app_name">OSUTI</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+    <string name="nav_header_title">Gauchat - Leites - Piedrabuena</string>
+    <string name="nav_header_subtitle">TP DAM 2020</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuraciones</string>
+
+    <string name="menu_home">Principal</string>
+    <string name="menu_turno">Turnos</string>
+    <string name="menu_prestador">Prestadores</string>
+    <string name="menu_afiliacion">Afilialciones</string>
+    <string name="menu_perfil">Perfil</string>
+
+    <string name="perfil_nombre">Nombre</string>
+    <string name="perfil_apellido">Apellido</string>
+    <string name="perfil_nro">Nro. Afiliado</string>
+    <string name="perfil_mail">E-mail</string>
+    <string name="perfil_pass">Contraseña</string>
+
+    <string name="perfil_hint_nombre">Ingrese su nombre</string>
+    <string name="perfil_hint_apellido">Ingrese su apellido</string>
+    <string name="perfil_hint_nro">Ingrese su nro. afiliado</string>
+    <string name="perfil_hint_mail">Ingrese su e-mail</string>
+    <string name="perfil_hint_pass">Ingrese su contraseña</string>
+
+    <string name="turno_especialidad">Especialidad</string>
+    <string name="turno_profesional">Profecional</string>
+    <string name="turno_fecha">Fecha</string>
+    <string name="turno_hora">Hora</string>
+
+    <string name="turno_hint_especialidad">Seleccione una especialidad</string>
+    <string name="turno_hint_profesional">Seleccione un profesional</string>
+    <string name="turno_hint_fecha">Seleccione un fecha</string>
+    <string name="turno_hint_hora">Seleccione una hora</string>
+
+    <string name="action_1">Editar</string>
+    <string name="action_2">Guardar</string>
+
+    <string name="label_google_sign_in">Firebase + Google Sign In</string>
+    <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
+
+    <string name="label_emailpassword">Email/Password Authentication</string>
+    <string name="desc_emailpassword">Use an email and password to authenticate with Firebase.</string>
+
+    <string name="label_passwordless">Passwordless Authentication</string>
+    <string name="desc_passwordless">Use only an email to authenticate with Firebase.</string>
+
+    <string name="label_anonymous_auth">Anonymous Authentication</string>
+    <string name="desc_anonymous_auth">Sign in anonymously and then later upgrade to a full Firebase Auth user.</string>
+
+    <string name="label_custom_auth">Custom Authentication</string>
+    <string name="desc_custom_auth">Use a custom token signed by your own server to authenticate with Firebase.</string>
+
+    <string name="label_firebase_ui">FirebaseUI Auth</string>
+    <string name="desc_firebase_ui">Use the FirebaseUI-Android library to authenticate with Firebase.</string>
+
+    <string name="label_generic_idp">Generic OAuth</string>
+    <string name="desc_generic_idp">Use a generic OAuth identity provider, like Apple, Microsoft, Yahoo, or Twitter to authenticate with Firebase.</string>
+
+    <string name="hint_user_id">ID de usuario</string>
+    <string name="get_custom_token">Get Token</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="create_account">Crear cuenta</string>
+    <string name="send_link">Enviar LinK</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="verify_email">Verify</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="loading">Cargando. . .</string>
+    <string name="custom_token">Custom Token</string>
+    <string name="signed_in">Registrado</string>
+    <string name="token_null">Token: null</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="auth_failed">La autentificación fallo</string>
+    <string name="start_phone_auth">Iniciar</string>
+    <string name="verify_phone_auth">Verificar</string>
+    <string name="resend_phone_auth">Re-enviar</string>
+    <string name="hint_phone_number">Número de telefono</string>
+    <string name="hint_verification_code">Código de verificación</string>
+    <string name="status_code_sent">Enviar código</string>
+    <string name="status_verification_failed">Fallo en la verificación</string>
+    <string name="status_verification_succeeded">Verificación exitosa</string>
+    <string name="status_sign_in_failed">Fallo al iniciar sesion</string>
+    <string name="instant_validation">(validación instantánea)</string>
+
+    <string name="firebase_status_fmt">Firebase UID: %s</string>
+    <string name="firebase_user_management">Firebase User Management</string>
+
+    <string name="google_status_fmt">Usuario Google: %s</string>
+    <string name="google_title_text">Iniciar sesión con Google</string>
+
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="emailpassword_title_text">Email and Password</string>
+
+    <string name="passwordless_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="passwordless_title_text">Iniciar sesión sin contraseña</string>
+    <string name="status_email_not_sent">Send link to your email to get started.</string>
+    <string name="status_email_sent">Link sent, check your email to continue.</string>
+    <string name="status_link_found">Link received, enter email to sign in.</string>
+
+    <string name="phone_title_text">Número de teléfono</string>
+
+    <string name="firebaseui_status_fmt">Firebase User: %s</string>
+    <string name="firebaseui_title_text">FirebaseUI Auth</string>
+
+    <string name="generic_title_text">Iniciar sesión en OAuth</string>
+    <string name="generic_signin_fmt">Inicia sesión con %s</string>
+    <string name="generic_status_fmt">Usuario: %s (%s)</string>
+    <string name="generic_label_provider">Proveedor:</string>
+
+    <string name="id_fmt">ID usuario: %s</string>
+    <string name="email_fmt">Email: %s</string>
+
+    <string name="enroll_mfa">Inscribirse MFA</string>
+    <string name="unenroll_mfa">Darse de baja MFA</string>
+    <string name="reload">Recargar</string>
+
+    <string name="custom_auth_signin_status_user">ID usuario: %s</string>
+    <string name="custom_auth_signin_status_failed">Error: no se pudo iniciar sesión</string>
+
+    <string name="error_sign_in_failed">No se pudo iniciar sesión, consulte los registros para obtener más detalles.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Bienvenido"</string>
+    <string name="invalid_username">Usuario invalido</string>
+    <string name="invalid_password">La contraseña al menos debe tener mas de 5 caracteres</string>
+    <string name="login_failed">"Login failed"</string>
+
+</resources>

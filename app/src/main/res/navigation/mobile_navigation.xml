@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.tpfinal.osuti.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_turno"
+        android:name="com.tpfinal.osuti.ui.turnos.TurnosFragment"
+        android:label="@string/menu_turno"
+        tools:layout="@layout/fragment_turnos" />
+
+    <fragment
+        android:id="@+id/nav_prestador"
+        android:name="com.tpfinal.osuti.ui.prestadores.PrestadorFragment"
+        android:label="@string/menu_prestador"
+        tools:layout="@layout/fragment_prestadores" />
+
+    <fragment
+        android:id="@+id/nav_afiliacion"
+        android:name="com.tpfinal.osuti.ui.afiliaciones.AfiliacionFragment"
+        android:label="@string/menu_afiliacion"
+        tools:layout="@layout/fragment_afiliaciones" />
+
+    <fragment
+        android:id="@+id/nav_perfil"
+        android:name="com.tpfinal.osuti.ui.perfil.PerfilFragment"
+        android:label="@string/menu_perfil"
+        tools:layout="@layout/fragment_perfil" />
+</navigation>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "984911806261",
+    "project_id": "osuti-dam2021",
+    "storage_bucket": "osuti-dam2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984911806261:android:6b61c83eb9f8554043567c",
+        "android_client_info": {
+          "package_name": "com.tpfinal.osuti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984911806261-lrbsl6a6n5pr3im20c9epq677m94p0h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tpfinal.osuti",
+            "certificate_hash": "35b388d42a0d682182ff16cd29986a844e4003ec"
+          }
+        },
+        {
+          "client_id": "984911806261-tdkjhg58t3menn6jpmd7nev914251cqj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVU8jnhWNZdF48U5xvXky2JerPMiu7r2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984911806261-tdkjhg58t3menn6jpmd7nev914251cqj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
