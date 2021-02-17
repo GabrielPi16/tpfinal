@@ -64,12 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(getApplicationContext(), item.getItemId(), Toast.LENGTH_LONG).show();
+       Intent i;
+        //Toast.makeText(getApplicationContext(), item.getItemId(), Toast.LENGTH_LONG).show();
         switch (item.getItemId()) {
-            case R.id.nav_loginOut:
-                Toast.makeText(getApplicationContext(), "Cerrando sesión", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
+
+            case(R.id.nav_loginOut):
+                i=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
