@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +24,8 @@ public class PrestadorFragment extends Fragment {
     // Add RecyclerView member
     private RecyclerView mRecyclerView;
     private View mRoot = null;
+    private Spinner spinner;
+    private final static String[] especialidad = { "Clinico", "Odontologia", "Traumatologia", "Urologia", "Bioquimica", "Gastroenterologia", "Cirugia","Ginecologia","Odontologia","Cardiologia" };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +39,13 @@ public class PrestadorFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mRoot.getContext()));
         mRecyclerView.setAdapter(new PrestadorAdapter(application));
+
+
+        //SPINER
+        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, especialidad);
+        spinner = (Spinner)mRoot.findViewById(R.id.spinnerEspecialidad);
+        spinner.setAdapter(adapter);
 
         return mRoot;
     }

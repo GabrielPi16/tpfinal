@@ -7,8 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.prestadores.PrestadorFragment">
 
+    <Spinner
+        android:id="@+id/spinnerEspecialidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:entries="@array/especialidad"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/prestador_recyclerView"
+        android:layout_marginTop="@dimen/icon_bottom_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent">

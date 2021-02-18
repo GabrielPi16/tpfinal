@@ -65,9 +65,9 @@ public class Prestador {
     public static List<Prestador> getListaProfecionales() {
         List<Prestador> profecionales = new ArrayList<Prestador>();
 
-        profecionales.add(new Prestador((long) 1,"Juan Bautista", "123412", "Clinico/Generalista", (long) 1));
-        profecionales.add(new Prestador((long) 2,"Marcos Esqueche", "231242", "Clinico/Generalista", (long)2));
-        profecionales.add(new Prestador((long) 3,"Andrea Sanchez", "234335", "Clinico/Generalista", (long) 5));
+        profecionales.add(new Prestador((long) 1,"Juan Bautista", "123412", "Clinico", (long) 1));
+        profecionales.add(new Prestador((long) 2,"Marcos Esqueche", "231242", "Clinico", (long)2));
+        profecionales.add(new Prestador((long) 3,"Andrea Sanchez", "234335", "Clinico", (long) 5));
         profecionales.add(new Prestador((long) 4,"Mauricio Loen", "315435", "Odontologia", (long) 2));
         profecionales.add(new Prestador((long) 5,"Carmen Mercos", "238131", "Traumatologia", (long) 1));
         profecionales.add(new Prestador((long) 6,"Maria Luciana Kim", "123567", "Traumatologia", (long) 4));
@@ -76,7 +76,7 @@ public class Prestador {
         profecionales.add(new Prestador((long) 9,"Micaela Nerto", "884323", "Neurologia", (long) 6));
         profecionales.add(new Prestador((long) 10,"Lorna Nuria", "234623", "Bioquimica", (long) 6));
         profecionales.add(new Prestador((long) 11,"Diego Velez", "876442", "Bioquimica", (long) 1));
-        profecionales.add(new Prestador((long) 12,"Juan Carlos Villa", "558894", "Cirugía General", (long) 2));
+        profecionales.add(new Prestador((long) 12,"Juan Carlos Villa", "558894", "Cirugía", (long) 2));
         profecionales.add(new Prestador((long) 13,"Mariana Lupus", "446245", "Gastroenterologia", (long) 3));
         profecionales.add(new Prestador((long) 14,"Amadeo Diex", "886434", "Odontologia", (long) 3));
         profecionales.add(new Prestador((long) 15,"Amanda Liniez", "408774", "Cardiologia", (long) 5));

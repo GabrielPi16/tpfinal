@@ -130,4 +130,18 @@
     <string name="invalid_password">La contraseña al menos debe tener mas de 5 caracteres</string>
     <string name="login_failed">"Login failed"</string>
 
+    <string-array name="especialidad">
+        <item>Clinico</item>
+        <item>Odontologia</item>
+        <item>Traumatologia</item>
+        <item>Urologia</item>
+        <item>Neurologia</item>
+        <item>Bioquimica</item>
+        <item>Cirugia</item>
+        <item>Gastroenterologia</item>
+        <item>Bioquimica</item>
+        <item>Odontologia</item>
+        <item>Ginecologia</item>
+    </string-array>
+
 </resources>
