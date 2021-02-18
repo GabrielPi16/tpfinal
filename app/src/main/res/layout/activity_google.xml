@@ -25,12 +25,12 @@
         android:orientation="vertical">
 
         <ImageView
-            style="@style/ThemeOverlay.FirebaseIcon"
             android:id="@+id/googleIcon"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/logo_app"
+            style="@style/ThemeOverlay.FirebaseIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="322dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/logo_app" />
 
         <TextView
             android:id="@+id/titleText"
@@ -39,11 +39,6 @@
             android:layout_marginBottom="@dimen/title_bottom_margin"
             android:text="@string/google_title_text"
             android:theme="@style/ThemeOverlay.MyTitleText" />
-
-        <TextView
-            android:id="@+id/status"
-            style="@style/ThemeOverlay.MyTextDetail"
-            android:text="@string/sign_out" />
 
         <TextView
             android:id="@+id/detail"

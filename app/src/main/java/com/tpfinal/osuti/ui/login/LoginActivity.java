@@ -143,57 +143,60 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome);
         // TODO : initiate successful logged in experience
-        AppRepository appRepository = new AppRepository(getApplication());
+        try {
+            /* Instanciamos el Repositorio para poder realizar las consultas necesarias */
+            AppRepository appRepository = new AppRepository(getApplication());
 
-        Prestador prestador = appRepository.buscarPrestador((long) 1);
-        if(prestador == null) {
-            List<Consultorio> consultorios = Consultorio.getListaConsltorios();
-            OnConsultorioResultCallback onCallbackConsultorio = new OnConsultorioResultCallback() {
-                @Override
-                public void onResultInsert(Long consultorio_id) {
-
-                }
-
-                @Override
-                public List<Consultorio> onResultSearch(List<Consultorio> consultorios) {
-                    return null;
-                }
-            };
-            for (Consultorio consultorio: consultorios) {
-                appRepository.insertarConsultorio(consultorio, onCallbackConsultorio);
-            }
-
-            Log.d("PRESTADOR", "Vamos a crear los prestadores");
-            List<Prestador> prestadores = Prestador.getListaProfecionales();
+            /* Declaramos un callback para recibir los datos retornados por los asyncTask del prestador */
             OnPrestadorResultCallback onCallbackPrestador = new OnPrestadorResultCallback() {
                 @Override
                 public void onResultInsert(Long prestador_id) {
-
+                    Log.d("CREACION PRESTADORES: ", String.format("prestador id: %d", prestador_id));
                 }
 
                 @Override
-                public List<Prestador> onResultSearch(List<Prestador> prestadores) {
-                    return null;
+                public List<Prestador> onResultSearch(List<Prestador> prestadores) { return null; }
+
+                @Override
+                public Prestador onResultSearchId(Prestador prestador) {
+                    if(prestador == null) {
+                        /* Recuperamos la lista de consultorios que vamos a crear para la BD */
+                        List<Consultorio> consultorios = Consultorio.getListaConsltorios();
+                        OnConsultorioResultCallback onCallbackConsultorio = new OnConsultorioResultCallback() {
+                            @Override
+                            public void onResultInsert(Long consultorio_id) {
+                                Log.d("CREACION CONSULTORIOS: ", String.format("consultorio id: %d", consultorio_id));
+                            }
+
+                            @Override
+                            public List<Consultorio> onResultSearch(List<Consultorio> consultorios) { return null; }
+                        };
+                        //Se crearan los consultorios
+                        for (Consultorio consultorio: consultorios) {
+                            appRepository.insertarConsultorio(consultorio, onCallbackConsultorio);
+                        }
+
+                        //Se crearan los prestadores
+                        List<Prestador> prestadores = Prestador.getListaProfecionales();
+                        for (Prestador medico: prestadores) {
+                            appRepository.insertPrestador(medico, this);
+                        }
+                    }
+                    else {
+                        Log.d("BUSCAR ID PRESTADOR: ", String.format("prestador id: %d y %s", prestador.getId(), prestador.getRazon_social()));
+                    }
+                    return prestador;
                 }
             };
-            for (Prestador medico: prestadores) {
-                appRepository.insertPrestador(medico, onCallbackPrestador);
-            }
-            prestador = appRepository.buscarPrestador((long) 1);
-            if(prestador == null) {
-                Log.d("PRESTADOR:FALLA", "No se logro ingresar los prestadores");
-            }
-            else {
-                Log.d("PRESTADOR:EXISTO", "Se logro ingresar los prestadores");
-            }
-        }
-        else {
-            Log.d("Prestador", prestador.getRazon_social());
+
+            /* Ejecutamos una consulta de prueba para saber si la BD fue instanciada con anterioridad */
+            appRepository.buscarPrestador((long) 1, onCallbackPrestador);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.welcome), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

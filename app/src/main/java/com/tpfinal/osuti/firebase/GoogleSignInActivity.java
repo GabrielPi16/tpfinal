@@ -46,7 +46,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google);
         // Views
-        mStatusTextView = findViewById(R.id.status);
+        //mStatusTextView = findViewById(R.id.status);
         mDetailTextView = findViewById(R.id.detail);
         setProgressBar(findViewById(R.id.progressBar));
 
@@ -164,7 +164,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     private void updateUI(FirebaseUser user) {
         hideProgressBar();
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
+            //mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
             findViewById(R.id.signInButton).setVisibility(View.GONE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
@@ -172,7 +172,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
-            mStatusTextView.setText(R.string.sign_out);
+            //mStatusTextView.setText(R.string.sign_out);
             mDetailTextView.setText(null);
             findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);

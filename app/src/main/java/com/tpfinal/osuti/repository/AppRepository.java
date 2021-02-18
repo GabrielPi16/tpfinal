@@ -11,6 +11,7 @@ import com.tpfinal.osuti.models.Prestador;
 import com.tpfinal.osuti.models.Turno;
 import com.tpfinal.osuti.models.Usuario;
 import com.tpfinal.osuti.repository.async.BuscarPrestador;
+import com.tpfinal.osuti.repository.async.BuscarPrestadorId;
 import com.tpfinal.osuti.repository.async.BuscarTurno;
 import com.tpfinal.osuti.repository.async.CrearConsultorio;
 import com.tpfinal.osuti.repository.callback.OnConsultorioResultCallback;
@@ -82,12 +83,8 @@ public class AppRepository {
     }
 
     /* Search's */
-    public Prestador buscarPrestador(Long prestador_id) {
-        AppDatabase.dataBaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() { mPrestadorDao.search(prestador_id); }
-        });
-        return null;
+    public void buscarPrestador(Long prestador_id, OnPrestadorResultCallback callback) {
+        new BuscarPrestadorId(mPrestadorDao, callback).execute(prestador_id);
     }
 
     public Prestador buscarPrestadorName(String name) {

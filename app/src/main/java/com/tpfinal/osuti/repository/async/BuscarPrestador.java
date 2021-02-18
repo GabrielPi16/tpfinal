@@ -28,3 +28,4 @@ public class BuscarPrestador extends AsyncTask<Void, Void, List<Prestador>> {
         mCallback.onResultSearch(prestadors);
     }
 }
+
