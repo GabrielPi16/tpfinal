@@ -17,6 +17,7 @@ import com.tpfinal.osuti.models.Prestador;
 import com.tpfinal.osuti.repository.AppRepository;
 import com.tpfinal.osuti.repository.callback.OnPrestadorResultCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PrestadorFragment extends Fragment {
@@ -26,6 +27,9 @@ public class PrestadorFragment extends Fragment {
     private View mRoot = null;
     private Spinner spinner;
     private final static String[] especialidad = { "Clinico", "Odontologia", "Traumatologia", "Urologia", "Bioquimica", "Gastroenterologia", "Cirugia","Ginecologia","Odontologia","Cardiologia" };
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerViewAdaptador adaptadorPrestador;
+    private Prestador prestador;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,12 +45,24 @@ public class PrestadorFragment extends Fragment {
         mRecyclerView.setAdapter(new PrestadorAdapter(application));
 
 
+        //Uso un administrador para LinearLayout
+        layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+
+
         //SPINER
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, especialidad);
         spinner = (Spinner)mRoot.findViewById(R.id.spinnerEspecialidad);
         spinner.setAdapter(adapter);
 
+        //el adaptador para el cardview
+        prestador = new Prestador();
+        adaptadorPrestador=new RecyclerViewAdaptador(prestador.getListaProfecionales());
+        mRecyclerView.setAdapter(adaptadorPrestador);
+
         return mRoot;
     }
+
+
 }
