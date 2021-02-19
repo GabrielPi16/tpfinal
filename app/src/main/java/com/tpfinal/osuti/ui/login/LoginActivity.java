@@ -29,9 +29,11 @@ import com.tpfinal.osuti.R;
 import com.tpfinal.osuti.firebase.GoogleSignInActivity;
 import com.tpfinal.osuti.models.Consultorio;
 import com.tpfinal.osuti.models.Prestador;
+import com.tpfinal.osuti.models.Usuario;
 import com.tpfinal.osuti.repository.AppRepository;
 import com.tpfinal.osuti.repository.callback.OnConsultorioResultCallback;
 import com.tpfinal.osuti.repository.callback.OnPrestadorResultCallback;
+import com.tpfinal.osuti.repository.callback.OnUsuarioResultCallback;
 
 import java.util.List;
 
@@ -126,6 +128,28 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                //Crea 5 usuarios al azar
+
+                Usuario usuario1 = new Usuario();
+                usuario1.setNroAfiliado(1111);
+
+                Usuario usuario2 = new Usuario();
+                usuario2.setNroAfiliado(2222);
+
+                AppRepository appRepository = new AppRepository(getApplication());
+                appRepository.insertarUsuario(usuario1);
+                appRepository.insertarUsuario(usuario2);
+
+                OnUsuarioResultCallback onCallbackUsuario = new OnUsuarioResultCallback() {
+                    @Override
+                    public void onResultInsert(Long prestador_id) {
+                        Log.d("CREACION PRESTADORES: ", String.format("prestador id: %d", prestador_id));
+                    }
+
+                    @Override
+                    public List<Prestador> onResultSearch(List<Prestador> prestadores) { return null; }
+
+
             }
         });
 

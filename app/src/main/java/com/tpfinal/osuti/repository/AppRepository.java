@@ -53,6 +53,10 @@ public class AppRepository {
         new CrearTurno(mTurnoDao, callback).execute(turno);
     }
 
+    public void insertarUsuario(final Usuario usuario, OnUsuarioResultCallback callback){
+        new CrearUsuario(mUsuarioDao,callback).execute(usuario);
+    }
+
     /* Updates */
     public void updateUsuario(final Usuario usuario) {
         AppDatabase.dataBaseWriteExecutor.execute(new Runnable() {
