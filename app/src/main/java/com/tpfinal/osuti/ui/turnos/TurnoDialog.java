@@ -1,7 +1,6 @@
 package com.tpfinal.osuti.ui.turnos;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,20 +25,26 @@ import com.tpfinal.osuti.models.Consultorio;
 import com.tpfinal.osuti.models.Prestador;
 import com.tpfinal.osuti.models.Turno;
 import com.tpfinal.osuti.repository.AppRepository;
+import com.tpfinal.osuti.repository.callback.OnConsultorioResultCallback;
+import com.tpfinal.osuti.repository.callback.OnPrestadorResultCallback;
 import com.tpfinal.osuti.repository.callback.OnTurnoResultCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class TurnoDialog extends DialogFragment {
 
     public static final String TAG = "turno_dialog";
 
     private Toolbar toolbar;
-    private String especialidad;
-    private String profesional;
-    private String fecha;
-    private String horario;
+    private String mEspecialidad = null;
+    private List<Prestador> mPrestadorList = null;
+    private Prestador mProfesional = null;
+    private Consultorio mConsultorio = null;
+    private String mFecha = null;
+    private String mHorario = null;
+    private AppRepository mAppRepository;
 
     public static TurnoDialog display(FragmentManager fragmentManager) {
         TurnoDialog mTurnoDialog = new TurnoDialog();
@@ -71,7 +76,59 @@ public class TurnoDialog extends DialogFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.turno_dialog, container, false);
 
+        mAppRepository = new AppRepository(this.getActivity().getApplication());
         toolbar = view.findViewById(R.id.turno_toolbar);
+        AutoCompleteTextView autoEspecialidad = (AutoCompleteTextView) view.findViewById(R.id.especialidad_autocomplete);
+        AutoCompleteTextView autoProfecional = (AutoCompleteTextView) view.findViewById(R.id.profesional_autocomplete);
+        /*Seteamos la lista de prestadores*/
+        OnPrestadorResultCallback callback = new OnPrestadorResultCallback() {
+            @Override
+            public void onResultInsert(Long prestador_id) {}
+
+            @Override
+            public void onResultSearch(List<Prestador> prestadores) {
+                mPrestadorList = prestadores;
+                String[] profesionales = new String[prestadores.size()];
+                int idex = 0;
+                for (Prestador prestador: prestadores) {
+                    profesionales[idex] = prestador.getRazon_social();
+                    idex++;
+                }
+
+                ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(requireContext(), R.layout.support_simple_spinner_dropdown_item, profesionales);
+                autoProfecional.setThreshold(1);
+                autoProfecional.setAdapter(adapter2);
+
+                autoProfecional.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        for (Prestador prestador : mPrestadorList) {
+                            if(prestador.getRazon_social().equals(parent.getItemAtPosition(position))) {
+                                mProfesional = prestador;
+                            }
+                        }
+
+                        Log.d("ON CLIK PROFESIONAL", mProfesional.getRazon_social());
+                        OnConsultorioResultCallback consultorioResultCallback = new OnConsultorioResultCallback() {
+                            @Override
+                            public void onResultInsert(Long consultorio_id) {}
+
+                            @Override
+                            public void onResultSearch(List<Consultorio> consultorios) {}
+
+                            @Override
+                            public void onResultSearchConsultorio(Consultorio consultorio) {
+                                mConsultorio = consultorio;
+                            }
+                        };
+                        mAppRepository.buscarConsultorio(mProfesional.getConsultorio_id(), consultorioResultCallback);
+                    }
+                });
+            }
+
+            @Override
+            public void onResultSearchId(Prestador prestador) { }
+        };
 
         /* SETEO DE CAMPO DE ESPECIALIDADES */
         String[] especialidades = {"Clinico/Generalista", "Traumatologia", "Ginecologia", "Urologia", "Neurologia",
@@ -80,7 +137,6 @@ public class TurnoDialog extends DialogFragment {
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(requireContext(), R.layout.support_simple_spinner_dropdown_item, especialidades);
 
-        AutoCompleteTextView autoEspecialidad = (AutoCompleteTextView) view.findViewById(R.id.especialidad_autocomplete);
         autoEspecialidad.setThreshold(1);
         autoEspecialidad.setAdapter(adapter1);
 
@@ -88,27 +144,12 @@ public class TurnoDialog extends DialogFragment {
         autoEspecialidad.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                especialidad = String.format("%s", parent.getItemAtPosition(position));
-                Log.d("ESPECIALIDAD: ", especialidad);
-            }
-        });
+                mEspecialidad = String.format("%s", parent.getItemAtPosition(position));
+                autoProfecional.setEnabled(true);
+                Log.d("ESPECIALIDAD: ", mEspecialidad);
 
-        /* SETEO DE CAMPO DE PROFESIONALES */
-        String[] profecionales = {"Juan Bautista", "Marcos Esqueche", "Mauricio Loen", "Carmen Mercos", "Maria Luciana Kim",
-                "Miguel Alverez", "Antonia Gon", "Cristofer Mateus", "Micaela Nerto", "Lorna Nuria",
-                "Diego Velez", "Juan Carlos Villa", "Mariana Lupus", "Amadeo Diex", "Amanda Liniez"};
-
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(requireContext(), R.layout.support_simple_spinner_dropdown_item, profecionales);
-
-        AutoCompleteTextView autoProfecional = (AutoCompleteTextView) view.findViewById(R.id.profesional_autocomplete);
-        autoProfecional.setThreshold(1);
-        autoProfecional.setAdapter(adapter2);
-
-        autoProfecional.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                profesional = String.format("%s", parent.getItemAtPosition(position));
-                Log.d("PROFESIONAL: ", profesional);
+                /* SETEO DE CAMPO DE PROFESIONALES */
+                mAppRepository.buscarPrestadoresPorEspecialidad(mEspecialidad, callback);
             }
         });
 
@@ -123,8 +164,8 @@ public class TurnoDialog extends DialogFragment {
         autoHorario.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                horario = String.format("%s", parent.getItemAtPosition(position));
-                Log.d("HORARIO: ", horario);
+                mHorario = String.format("%s", parent.getItemAtPosition(position));
+                Log.d("HORARIO: ", mHorario);
             }
         });
 
@@ -133,8 +174,8 @@ public class TurnoDialog extends DialogFragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                fecha = String.format("%d-%d-%d", year, month, dayOfMonth);
-                Log.d("FECHA: ", fecha);
+                mFecha = String.format("%d-%d-%d", year, month, dayOfMonth);
+                Log.d("FECHA: ", mFecha);
             }
         });
 
@@ -144,21 +185,25 @@ public class TurnoDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (onValidateFormTurnos()) {
-                    /*AppRepository repository = new AppRepository(new Application());
-
-                    Prestador prestador = repository.buscarPrestadorName(profesional);
-                    Consultorio consultorio = repository.buscarConsultorio(prestador.getConsultorio_id());
-
                     String creacion = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-                    String lugar = String.format("%s - %s. %s", consultorio.getNombre(), consultorio.getCiudad(), consultorio.getDireccion());
+                    String lugar = String.format("%s - %s. %s", mConsultorio.getNombre(), mConsultorio.getCiudad(), mConsultorio.getDireccion());
 
-                    Turno turno = new Turno(prestador.getId(), fecha, horario, lugar, creacion);
-                    repository.insertTurno(turno, (OnTurnoResultCallback) TurnoDialog.this);*/
+                    Turno turno = new Turno(mProfesional.getId(), mProfesional.getRazon_social(), mFecha, mHorario, lugar, creacion);
+                    OnTurnoResultCallback callback1 = new OnTurnoResultCallback() {
+                        @Override
+                        public void onResultInsert(Long turnos) {
+                            Toast.makeText(view.getContext(),"EL turno fue correctamente creado.",Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(view.getContext(),"EL turno fue correctamente creado.",Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public List<Turno> onResultSearch(List<Turno> turnos) { return null;}
+                    };
+
+                    mAppRepository.insertTurno(turno, callback1);
                 }
                 else{
-                    Toast.makeText(view.getContext(),"Faltan ingresar campos.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.getContext(),"Faltan ingresar campos. Verifique que todo este correctamente ingresado.",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -179,6 +224,12 @@ public class TurnoDialog extends DialogFragment {
 
     /* Valida que todos los campos en el formulario fueron ingresados */
     private boolean onValidateFormTurnos() {
+
+        if (mEspecialidad == null) return false;
+        if (mProfesional == null) return false;
+        if (mFecha == null) return false;
+        if (mHorario == null) return false;
+
         return true;
     }
 

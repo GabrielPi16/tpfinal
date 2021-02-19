@@ -19,7 +19,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Usuario.class, Prestador.class, Turno.class, Consultorio.class}, version = 10, exportSchema = false)
+@Database(entities = {Usuario.class, Prestador.class, Turno.class, Consultorio.class}, version = 12, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UsuarioDao usuarioDao();
     public abstract PrestadorDao prestadorDao();

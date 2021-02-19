@@ -156,10 +156,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public List<Prestador> onResultSearch(List<Prestador> prestadores) { return null; }
+                public void onResultSearch(List<Prestador> prestadores) { }
 
                 @Override
-                public Prestador onResultSearchId(Prestador prestador) {
+                public void onResultSearchId(Prestador prestador) {
                     if(prestador == null) {
                         /* Recuperamos la lista de consultorios que vamos a crear para la BD */
                         List<Consultorio> consultorios = Consultorio.getListaConsltorios();
@@ -170,7 +170,10 @@ public class LoginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public List<Consultorio> onResultSearch(List<Consultorio> consultorios) { return null; }
+                            public void onResultSearch(List<Consultorio> consultorios) {}
+
+                            @Override
+                            public void onResultSearchConsultorio(Consultorio consultorio) { }
                         };
                         //Se crearan los consultorios
                         for (Consultorio consultorio: consultorios) {
@@ -186,7 +189,6 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         Log.d("BUSCAR ID PRESTADOR: ", String.format("prestador id: %d y %s", prestador.getId(), prestador.getRazon_social()));
                     }
-                    return prestador;
                 }
             };
 

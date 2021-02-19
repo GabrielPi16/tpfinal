@@ -2,6 +2,8 @@ package com.tpfinal.osuti.repository;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.tpfinal.osuti.dao.ConsultorioDao;
 import com.tpfinal.osuti.dao.PrestadorDao;
 import com.tpfinal.osuti.dao.TurnoDao;
@@ -10,8 +12,10 @@ import com.tpfinal.osuti.models.Consultorio;
 import com.tpfinal.osuti.models.Prestador;
 import com.tpfinal.osuti.models.Turno;
 import com.tpfinal.osuti.models.Usuario;
+import com.tpfinal.osuti.repository.async.BuscarConsultorio;
 import com.tpfinal.osuti.repository.async.BuscarPrestador;
 import com.tpfinal.osuti.repository.async.BuscarPrestadorId;
+import com.tpfinal.osuti.repository.async.BuscarPrestadorPorEspecialidad;
 import com.tpfinal.osuti.repository.async.BuscarTurno;
 import com.tpfinal.osuti.repository.async.CrearConsultorio;
 import com.tpfinal.osuti.repository.callback.OnConsultorioResultCallback;
@@ -21,6 +25,8 @@ import com.tpfinal.osuti.repository.callback.OnUsuarioResultCallback;
 import com.tpfinal.osuti.repository.async.CrearPrestador;
 import com.tpfinal.osuti.repository.async.CrearTurno;
 import com.tpfinal.osuti.repository.async.CrearUsuario;
+
+import java.util.List;
 
 public class AppRepository {
     private UsuarioDao mUsuarioDao;
@@ -97,18 +103,16 @@ public class AppRepository {
         return null;
     }
 
-    public Consultorio buscarConsultorio(Long consultorio_id) {
-        AppDatabase.dataBaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mConsultorioDao.search(consultorio_id);
-            }
-        });
-        return null;
+    public void buscarConsultorio(Long consultorio_id, OnConsultorioResultCallback callback) {
+        new BuscarConsultorio(mConsultorioDao, callback).execute(consultorio_id);
     }
 
     public void buscarTodosPrestadores(OnPrestadorResultCallback callback) {
         new BuscarPrestador(mPrestadorDao, callback).execute();
+    }
+
+    public void buscarPrestadoresPorEspecialidad(String especialidad, OnPrestadorResultCallback callback) {
+        new BuscarPrestadorPorEspecialidad(mPrestadorDao, callback).execute(especialidad);
     }
 
     public void buscarTurno(Long turno_id){
@@ -122,5 +126,12 @@ public class AppRepository {
 
     public void buscarTodosTurnos(OnTurnoResultCallback callback) {
         new BuscarTurno(mTurnoDao, callback).execute();
+    }
+
+    public LiveData<List<Turno>> getAllTurnos() {
+        return mTurnoDao.getAllTurnos();
+    }
+    public LiveData<List<Prestador>> getAllPrestadores() {
+        return mPrestadorDao.getAllPrestadores();
     }
 }

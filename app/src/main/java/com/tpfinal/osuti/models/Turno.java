@@ -28,6 +28,7 @@ public class Turno {
     @NonNull
     private Long prestador_id;
 
+    private String nombrePrestador;
     private String fecha;
     private String hora;
     private String clinica;
@@ -37,8 +38,9 @@ public class Turno {
     public Turno() {}
 
     @Ignore
-    public Turno(@NonNull Long prestador_id, String fecha, String hora, String clinica, String created) {
+    public Turno(@NonNull Long prestador_id, String nombrePrestador, String fecha, String hora, String clinica, String created) {
         this.prestador_id = prestador_id;
+        this.nombrePrestador = nombrePrestador;
         this.fecha = fecha;
         this.hora = hora;
         this.clinica = clinica;
@@ -50,6 +52,7 @@ public class Turno {
     public Long getId() { return id; }
     @NonNull
     public Long getPrestador_id() { return prestador_id; }
+    public String getNombrePrestador() { return nombrePrestador; }
     public String getFecha() { return fecha; }
     public String getHora() { return hora; }
     public String getClinica() { return clinica; }
@@ -58,6 +61,7 @@ public class Turno {
     /* Setters */
     public void setId(Long id) { this.id = id; }
     public void setPrestador_id(@NonNull Long prestador_id) { this.prestador_id = prestador_id; }
+    public void setNombrePrestador(String nombrePrestador) { this.nombrePrestador = nombrePrestador; }
     public void setFecha(String fecha) { this.fecha = fecha; }
     public void setHora(String hora) { this.hora = hora; }
     public void setClinica(String clinica) { this.clinica = clinica; }

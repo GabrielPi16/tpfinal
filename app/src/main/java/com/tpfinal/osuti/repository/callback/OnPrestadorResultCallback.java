@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface OnPrestadorResultCallback {
     void onResultInsert(Long prestador_id);
-    List<Prestador> onResultSearch(List<Prestador> prestadores);
-    Prestador onResultSearchId(Prestador prestador);
+    void onResultSearch(List<Prestador> prestadores);
+    void onResultSearchId(Prestador prestador);
 }

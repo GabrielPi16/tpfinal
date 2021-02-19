@@ -1,33 +1,34 @@
 package com.tpfinal.osuti.ui.prestadores;
 
+import android.app.Application;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tpfinal.osuti.R;
+import com.tpfinal.osuti.models.Prestador;
+import com.tpfinal.osuti.models.Turno;
+import com.tpfinal.osuti.repository.AppRepository;
 
-public class PrestadorViewModel extends RecyclerView.ViewHolder {
-    private CardView mCardView;
-    private TextView mRazonSocial;
-    private TextView mEspecialidad;
-    private TextView mConsultorio;
-    private TextView mMatricula;
+import java.util.List;
 
-    public PrestadorViewModel(@NonNull View itemView) {
-        super(itemView);
-        mCardView = itemView.findViewById(R.id.prestador_cardView);
-        mRazonSocial = itemView.findViewById(R.id.item_nombrePrestador);
-        mEspecialidad = itemView.findViewById(R.id.item_especialidad);
-        mConsultorio = itemView.findViewById(R.id.item_consultorio);
-        mMatricula = itemView.findViewById(R.id.item_matricula);
+public class PrestadorViewModel extends AndroidViewModel {
+    private AppRepository mAppRepository;
+    private LiveData<List<Prestador>> mListPretador;
+
+    public PrestadorViewModel(@NonNull Application application){
+        super(application);
+        mAppRepository = new AppRepository(application);
+        mListPretador = mAppRepository.getAllPrestadores();
     }
 
-    public CardView getCardView() { return mCardView; }
-    public TextView getRazonSocial() { return mRazonSocial; }
-    public TextView getEspecialidad() { return mEspecialidad; }
-    public TextView getConsultorio() { return mConsultorio; }
-    public TextView getMatricula() { return mMatricula; }
+    public LiveData<List<Prestador>> getAllPrestadores() {
+        return mListPretador;
+    }
+
 }

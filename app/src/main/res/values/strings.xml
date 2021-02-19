@@ -35,6 +35,8 @@
     <string name="turno_hint_fecha">Seleccione un fecha</string>
     <string name="turno_hint_hora">Seleccione una hora</string>
 
+    <string name="prestadores_hint_especialidad">Seleccione una Especialidad</string>
+
     <string name="action_1">Editar</string>
     <string name="action_2">Guardar</string>
 
@@ -143,5 +145,13 @@
         <item>Odontologia</item>
         <item>Ginecologia</item>
     </string-array>
+
+    <string name="message_dialog">"Confirmación"</string>
+    <string name="message_delete_question">"¿Esta seguro que desea eliminar el registro?"</string>
+    <string name="message_yes">"SI"</string>
+    <string name="message_no">"No"</string>
+    <string name="message_delete">"Registro Eliminado"</string>
+    <string name="message_cancel">"Eliminación Cancelada"</string>
+    <string name="message_error">"Error: UPS! ocurrio una falla en el proceso de eliminación."</string>
 
 </resources>

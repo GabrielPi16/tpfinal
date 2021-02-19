@@ -85,6 +85,7 @@
                             android:id="@+id/profesional_autocomplete"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:enabled="false"
                             android:inputType="none" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -136,11 +137,12 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnGuardar"
-                        style="@style/Theme.MaterialComponents.Light.BottomSheetDialog"
+                        style="@style/Animation.Design.BottomSheetDialog"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="@string/action_2" />
+                        android:text="@string/action_2"
+                        app:iconTint="@color/teal_200" />
                 </LinearLayout>
 
             </LinearLayout>
