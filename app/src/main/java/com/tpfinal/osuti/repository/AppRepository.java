@@ -43,10 +43,6 @@ public class AppRepository {
     }
 
     /* Inserts */
-    public void insertUsuario(final Usuario usuario, OnUsuarioResultCallback callback) {
-        new CrearUsuario(mUsuarioDao, callback).execute(usuario);
-    }
-
     public void insertPrestador(final Prestador prestador, OnPrestadorResultCallback callback) {
         new CrearPrestador(mPrestadorDao, callback).execute(prestador);
     }
@@ -130,6 +126,10 @@ public class AppRepository {
 
     public void buscarTodosTurnos(OnTurnoResultCallback callback) {
         new BuscarTurno(mTurnoDao, callback).execute();
+    }
+
+    public Usuario buscarUsuario(String user, String password ) {
+        return mUsuarioDao.searchUser(user, password);
     }
 
     public LiveData<List<Turno>> getAllTurnos() {

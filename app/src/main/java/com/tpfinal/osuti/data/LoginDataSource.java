@@ -1,6 +1,8 @@
 package com.tpfinal.osuti.data;
 
 import com.tpfinal.osuti.data.model.LoggedInUser;
+import com.tpfinal.osuti.models.Usuario;
+import com.tpfinal.osuti.repository.AppRepository;
 
 import java.io.IOException;
 
@@ -9,15 +11,17 @@ import java.io.IOException;
  */
 public class LoginDataSource {
 
-    public Result<LoggedInUser> login(String username, String password) {
+    public Result<LoggedInUser> login(String username, String password, AppRepository appRepository) {
 
         try {
             // TODO: handle loggedInUser authentication
-            LoggedInUser fakeUser =
+            Usuario usuario = appRepository.buscarUsuario(username, password);
+            LoggedInUser User =
                     new LoggedInUser(
-                            java.util.UUID.randomUUID().toString(),
-                            "Jane Doe");
-            return new Result.Success<>(fakeUser);
+                            usuario.getId().toString(),
+                            usuario.getNombre() + " " + usuario.getApellido());
+
+            return new Result.Success<>(User);
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }

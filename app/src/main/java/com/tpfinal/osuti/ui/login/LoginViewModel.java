@@ -10,6 +10,7 @@ import com.tpfinal.osuti.data.LoginRepository;
 import com.tpfinal.osuti.data.Result;
 import com.tpfinal.osuti.data.model.LoggedInUser;
 import com.tpfinal.osuti.R;
+import com.tpfinal.osuti.repository.AppRepository;
 
 public class LoginViewModel extends ViewModel {
 
@@ -29,9 +30,9 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-    public void login(String username, String password) {
+    public void login(String username, String password, AppRepository appRepository) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<LoggedInUser> result = loginRepository.login(username, password, appRepository);
 
         if (result instanceof Result.Success) {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();

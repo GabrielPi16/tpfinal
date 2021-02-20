@@ -58,12 +58,8 @@ public class AfiliacionFragment extends Fragment {
         progressBar=(ProgressBar)root.findViewById(R.id.progressBar);
 
         progressBar.setVisibility(View.GONE);
-        Intent i;
 
-
-
-        Context ctx;
-        ctx=getActivity();
+        Context ctx = getActivity();
 
         botonAfiliar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,15 +82,9 @@ public class AfiliacionFragment extends Fragment {
                                 .bigLargeIcon(null))
                         .build();
 
+                //startActivity(new Intent(getActivity(),MainActivity.class));
             }
         });
-
-
-        i=new Intent(getActivity(),MainActivity.class);
-        startActivity(i);
-
-
-
 
         return root;
     }

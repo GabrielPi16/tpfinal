@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements OnUsuarioResultC
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
                 if (loginFormState == null) {
-
                     return;
                 }
                 loginButton.setEnabled(loginFormState.isDataValid());
@@ -83,11 +82,11 @@ public class LoginActivity extends AppCompatActivity implements OnUsuarioResultC
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
-                }
-                setResult(Activity.RESULT_OK);
 
-                //Complete and destroy login activity once successful
-                finish();
+                    setResult(Activity.RESULT_OK);
+                    //Complete and destroy login activity once successful
+                    finish();
+                }
             }
         });
 
@@ -115,8 +114,10 @@ public class LoginActivity extends AppCompatActivity implements OnUsuarioResultC
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                    loginViewModel.login(
+                            usernameEditText.getText().toString(),
+                            passwordEditText.getText().toString(),
+                            new AppRepository(getApplication()));
                 }
                 return false;
             }
@@ -126,46 +127,24 @@ public class LoginActivity extends AppCompatActivity implements OnUsuarioResultC
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-                //Crea 5 usuarios al azar
-
-                Usuario usuario1 = new Usuario();
-                usuario1.setNroAfiliado(1111);
-
-                Usuario usuario2 = new Usuario();
-                usuario2.setNroAfiliado(2222);
-
-                AppRepository appRepository = new AppRepository(getApplication());
-                appRepository.insertarUsuario(usuario1, LoginActivity.this);
-                appRepository.insertarUsuario(usuario2, LoginActivity.this);
-
+                loginViewModel.login(
+                        usernameEditText.getText().toString(),
+                        passwordEditText.getText().toString(),
+                        new AppRepository(getApplication()));
             }
 
         });
+
         loginGoogle.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 loginWithGoogle();
             }
         });
-    }
 
-    @Override
-    public void onResultInsertUser(Long idUsuario){
-    }
-
-    private void loginWithGoogle() {
-        Intent intent = new Intent(this, GoogleSignInActivity.class);
-        startActivity(intent);
-    }
-
-    private void updateUiWithUser(LoggedInUserView model) {
-        // TODO : initiate successful logged in experience
         try {
             /* Instanciamos el Repositorio para poder realizar las consultas necesarias */
             AppRepository appRepository = new AppRepository(getApplication());
-
             /* Declaramos un callback para recibir los datos retornados por los asyncTask del prestador */
             OnPrestadorResultCallback onCallbackPrestador = new OnPrestadorResultCallback() {
                 @Override
@@ -203,19 +182,42 @@ public class LoginActivity extends AppCompatActivity implements OnUsuarioResultC
                         for (Prestador medico: prestadores) {
                             appRepository.insertPrestador(medico, this);
                         }
+
+                        //Se crearan los usuarios
+                        List<Usuario> usuarios = Usuario.getListaUsuarios();
+                        OnUsuarioResultCallback callback = new OnUsuarioResultCallback() {
+                            @Override
+                            public void onResultInsertUser(Long idUsuario) {
+                                Log.d("CREACION USUARIOS: ", String.format("usuario id: %d", idUsuario));
+                            }
+                        };
+                        for ( Usuario usuario : usuarios) {
+                            appRepository.insertarUsuario(usuario, callback);
+                        }
                     }
                     else {
                         Log.d("BUSCAR ID PRESTADOR: ", String.format("prestador id: %d y %s", prestador.getId(), prestador.getRazon_social()));
                     }
                 }
             };
-
             /* Ejecutamos una consulta de prueba para saber si la BD fue instanciada con anterioridad */
             appRepository.buscarPrestador((long) 1, onCallbackPrestador);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    @Override
+    public void onResultInsertUser(Long idUsuario){
+    }
+
+    private void loginWithGoogle() {
+        Intent intent = new Intent(this, GoogleSignInActivity.class);
+        startActivity(intent);
+    }
+
+    private void updateUiWithUser(LoggedInUserView model) {
+        // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), getString(R.string.welcome), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
