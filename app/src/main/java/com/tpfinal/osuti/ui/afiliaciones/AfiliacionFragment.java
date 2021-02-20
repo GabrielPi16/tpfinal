@@ -61,7 +61,7 @@ public class AfiliacionFragment extends Fragment {
                             createNotificationChannel();
                             createNotification();
 
-                            startActivity(new Intent(getActivity().getApplication(), MainActivity.class));
+                            startActivity(new Intent(mContext, MainActivity.class));
                         }
                     };
 

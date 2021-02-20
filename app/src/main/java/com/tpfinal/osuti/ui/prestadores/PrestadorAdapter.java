@@ -1,5 +1,9 @@
 package com.tpfinal.osuti.ui.prestadores;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,21 +13,25 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.tpfinal.osuti.MapsActivity;
 import com.tpfinal.osuti.R;
 import com.tpfinal.osuti.models.Prestador;
-import com.tpfinal.osuti.models.Turno;
-import com.tpfinal.osuti.ui.turnos.TurnosAdapter;
-import com.tpfinal.osuti.ui.turnos.TurnosFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.*;
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class PrestadorAdapter extends RecyclerView.Adapter<PrestadorAdapter.ViewHolder> {
     public List<Prestador> mListPrestadores;
+    private Context context;
 
     public PrestadorAdapter() {}
 
-    public void setListPrestadores(List<Prestador> listPretadores) {
+    public void setListPrestadores(List<Prestador> listPretadores, Context context1) {
+        context = context1;
         if (mListPrestadores == null) {
             mListPrestadores = new ArrayList<>();
         }
@@ -47,7 +55,39 @@ public class PrestadorAdapter extends RecyclerView.Adapter<PrestadorAdapter.View
         holder.getEspecialidad().setText(prestador.getEspecialidad());
         holder.getMatricula().setText(prestador.getMatricula());
         holder.getRazonSocial().setText(prestador.getRazon_social());
-        holder.getConsultorio().setText("Atiende en: " + prestador.getConsultorio_id());
+
+        String consultorio = "";
+        if (prestador.getConsultorio_id() == 1) {
+            consultorio = "Sanatorio Santa Fe";
+        }
+        else if (prestador.getConsultorio_id() == 2) {
+            consultorio = "Sanatorio Garay";
+        }
+        else if (prestador.getConsultorio_id() == 3) {
+            consultorio = "Hospital Jose Maria Cuyen";
+        }
+        else if (prestador.getConsultorio_id() == 4) {
+            consultorio = "Sanatorio San Geronimo";
+        }
+        else if (prestador.getConsultorio_id() == 5) {
+            consultorio = "Sanatorio Diagnostico";
+        }
+        else if (prestador.getConsultorio_id() == 6) {
+            consultorio = "Sanatorio Mayo";
+        }
+
+        holder.getConsultorio().setText("Atiende en: " + consultorio);
+
+        holder.getCardView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MapsActivity.mConsultorio = prestador.getConsultorio_id();
+                Intent mapIntent = new Intent(context, MapsActivity.class);
+                mapIntent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(mapIntent);
+            }
+        });
     }
 
     @Override

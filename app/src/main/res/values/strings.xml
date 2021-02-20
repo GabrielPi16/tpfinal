@@ -153,5 +153,6 @@
     <string name="message_delete">"Registro Eliminado"</string>
     <string name="message_cancel">"Eliminación Cancelada"</string>
     <string name="message_error">"Error: UPS! ocurrio una falla en el proceso de eliminación."</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

@@ -1,6 +1,7 @@
 package com.tpfinal.osuti.ui.prestadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tpfinal.osuti.MapsActivity;
 import com.tpfinal.osuti.R;
 import com.tpfinal.osuti.models.Prestador;
 import com.tpfinal.osuti.models.Turno;
@@ -25,6 +27,8 @@ import com.tpfinal.osuti.ui.turnos.TurnosViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class PrestadorFragment extends Fragment {
 
@@ -35,7 +39,6 @@ public class PrestadorFragment extends Fragment {
 
     public void setListData(List<Prestador> dataItemList) {
         //if data changed, set new list to adapter of recyclerview
-
         if (mListPrestadores == null) {
             mListPrestadores = new ArrayList<>();
         }
@@ -43,7 +46,7 @@ public class PrestadorFragment extends Fragment {
         mListPrestadores.addAll(dataItemList);
 
         if (mListAdapter != null) {
-            mListAdapter.setListPrestadores(dataItemList);
+            mListAdapter.setListPrestadores(dataItemList, getActivity().getApplication());
         }
     }
 
@@ -58,7 +61,7 @@ public class PrestadorFragment extends Fragment {
         mListAdapter = new PrestadorAdapter();
 
         if (mListPrestadores != null) {
-            mListAdapter.setListPrestadores(mListPrestadores);
+            mListAdapter.setListPrestadores(mListPrestadores, context);
         }
 
         recyclerView.setAdapter(mListAdapter);
@@ -103,5 +106,10 @@ public class PrestadorFragment extends Fragment {
                 }
             }
         });
+    }
+
+    public void startActivityMaps() {
+        Context mContext  = getActivity().getApplication();
+        startActivity(new Intent(mContext, MapsActivity.class));
     }
 }
