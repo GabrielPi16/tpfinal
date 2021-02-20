@@ -19,12 +19,13 @@ public class CrearUsuario extends AsyncTask<Usuario, Void, Long> {
     @Override
     protected Long doInBackground(Usuario... usuarios) {
         Long id = mUsuarioDao.insert(usuarios[0]);
+        usuarios[0].setId(id);
         return id;
     }
 
     @Override
     protected void onPostExecute(Long aLong) {
-        super.onPostExecute(aLong);
-        mCallback.onResultInsert(aLong);
+        //super.onPostExecute(aLong);
+        mCallback.onResultInsertUser(aLong);
     }
 }

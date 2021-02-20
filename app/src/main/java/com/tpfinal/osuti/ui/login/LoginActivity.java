@@ -37,7 +37,7 @@ import com.tpfinal.osuti.repository.callback.OnUsuarioResultCallback;
 
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements OnUsuarioResultCallback {
 
     private LoginViewModel loginViewModel;
 
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
@@ -137,28 +137,22 @@ public class LoginActivity extends AppCompatActivity {
                 usuario2.setNroAfiliado(2222);
 
                 AppRepository appRepository = new AppRepository(getApplication());
-                appRepository.insertarUsuario(usuario1);
-                appRepository.insertarUsuario(usuario2);
-
-                OnUsuarioResultCallback onCallbackUsuario = new OnUsuarioResultCallback() {
-                    @Override
-                    public void onResultInsert(Long prestador_id) {
-                        Log.d("CREACION PRESTADORES: ", String.format("prestador id: %d", prestador_id));
-                    }
-
-                    @Override
-                    public List<Prestador> onResultSearch(List<Prestador> prestadores) { return null; }
-
+                appRepository.insertarUsuario(usuario1, LoginActivity.this);
+                appRepository.insertarUsuario(usuario2, LoginActivity.this);
 
             }
-        });
 
-        loginGoogle.setOnClickListener(new View.OnClickListener() {
+        });
+        loginGoogle.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 loginWithGoogle();
             }
         });
+    }
+
+    @Override
+    public void onResultInsertUser(Long idUsuario){
     }
 
     private void loginWithGoogle() {
