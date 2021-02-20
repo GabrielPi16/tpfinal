@@ -11,11 +11,13 @@ import androidx.core.app.NotificationCompat;
 
 import com.tpfinal.osuti.R;
 
-import static com.tpfinal.osuti.ui.afiliaciones.AfiliacionFragment.CHANNEL_ID;
-
 public class Notificacion extends BroadcastReceiver {
+
+    private final static String CHANNEL_ID = "NOTIFICATION";
+
     @Override
     public void onReceive(Context context, Intent intent) {
+
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,"NOTIFICACION");

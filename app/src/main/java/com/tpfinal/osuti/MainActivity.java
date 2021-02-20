@@ -63,23 +63,13 @@ public class MainActivity extends AppCompatActivity implements TurnosFragment.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-       Intent i;
-        //Toast.makeText(getApplicationContext(), item.getItemId(), Toast.LENGTH_LONG).show();
-        switch (item.getItemId()) {
-
-            case(R.id.nav_loginOut):
-                i=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

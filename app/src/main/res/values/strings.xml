@@ -10,7 +10,7 @@
     <string name="menu_home">Principal</string>
     <string name="menu_turno">Turnos</string>
     <string name="menu_prestador">Prestadores</string>
-    <string name="menu_afiliacion">Afilialciones</string>
+    <string name="menu_afiliacion">Afiliaciones</string>
     <string name="menu_perfil">Perfil</string>
 
     <string name="perfil_nombre">Nombre</string>

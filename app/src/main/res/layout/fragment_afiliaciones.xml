@@ -4,87 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.afiliaciones.AfiliacionFragment">
 
-
-    <TextView
-        android:id="@+id/tvNombreaf"
+    <LinearLayout
+        android:id="@+id/afiliacion_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ingrese su nombre" />
+        android:layout_height="match_parent"
+        android:padding="@dimen/icon_top_margin"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/etNombreaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-         />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="INGRESE SUS DATOS PARA COMENZAR LA AFILACIÓN"
+            android:textColor="@color/teal_700" />
 
-    <TextView
-        android:id="@+id/tvApellidoaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ingrese su apellido" />
+        <TextView
+            android:id="@+id/tvNombreaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/perfil_nombre"
+            android:layout_marginTop="@dimen/icon_top_margin" />
 
-    <EditText
-        android:id="@+id/etApellidoaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        />
+        <EditText
+            android:id="@+id/etNombreaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/perfil_hint_nombre"
+             />
 
-    <TextView
-        android:id="@+id/tvFechanac"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ingrese su fecha de nacimiento" />
+        <TextView
+            android:id="@+id/tvApellidoaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/perfil_apellido"
+            android:layout_marginTop="@dimen/icon_top_margin" />
 
-    <EditText
-        android:id="@+id/etFehanacaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date" />
+        <EditText
+            android:id="@+id/etApellidoaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/perfil_hint_apellido" />
 
-    <TextView
-        android:id="@+id/tvDNIaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ingrese su DNI" />
+        <TextView
+            android:id="@+id/tvFechanac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de nacimiento"
+            android:layout_marginTop="@dimen/icon_top_margin" />
 
-    <EditText
-        android:id="@+id/etDNIaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" />
+        <EditText
+            android:id="@+id/etFehanacaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Ingrese con formato: dd/mm/aaaa o dd-mm-aaaa"/>
 
-    <TextView
-        android:id="@+id/tvEmailaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/tvDNIaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DNI"
+            android:layout_marginTop="@dimen/icon_top_margin" />
 
-    <EditText
-        android:id="@+id/etEmailaf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
+        <EditText
+            android:id="@+id/etDNIaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:hint="Ingrese su DNI"/>
+
+        <TextView
+            android:id="@+id/tvEmailaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/perfil_mail"
+            android:layout_marginTop="@dimen/icon_top_margin" />
+
+        <EditText
+            android:id="@+id/etEmailaf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/perfil_hint_mail"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/buttonAfiliacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:text="Enviar Solicitud"
+            android:layout_marginTop="@dimen/icon_top_margin"/>
+
+    </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/buttonAfiliacion"
-        android:layout_width="match_parent"
+        android:id="@+id/progressBar3"
+        style="@android:style/Widget.Material.ProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_shadow_end_color"
-        android:text="Button" />
+        android:indeterminate="true"
+        android:indeterminateTint="@color/teal_700"
+        android:visibility="gone" />
+
 </LinearLayout>
