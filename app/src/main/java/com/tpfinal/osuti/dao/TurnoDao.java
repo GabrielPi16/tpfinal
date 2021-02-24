@@ -19,6 +19,9 @@ public interface TurnoDao {
     @Delete
     void delete(Turno turno);
 
+    @Query("DELETE FROM turno WHERE id = :id")
+    void deleteById(Long id);
+
     @Update
     void update(Turno turno);
 

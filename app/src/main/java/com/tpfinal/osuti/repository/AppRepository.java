@@ -88,6 +88,15 @@ public class AppRepository {
         });
     }
 
+    public void deleteTurnoById(Long turno_id) {
+        AppDatabase.dataBaseWriteExecutor.execute(new Runnable() {
+              @Override
+              public void run() {
+                  mTurnoDao.deleteById(turno_id);
+              }
+        });
+    }
+
     /* Search's */
     public void buscarPrestador(Long prestador_id, OnPrestadorResultCallback callback) {
         new BuscarPrestadorId(mPrestadorDao, callback).execute(prestador_id);

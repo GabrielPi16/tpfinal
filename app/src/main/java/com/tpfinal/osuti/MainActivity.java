@@ -2,6 +2,7 @@ package com.tpfinal.osuti;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.tpfinal.osuti.models.Turno;
+import com.tpfinal.osuti.repository.AppRepository;
+import com.tpfinal.osuti.repository.callback.OnTurnoResultCallback;
 import com.tpfinal.osuti.ui.fragments.AlertDialogFragment;
 import com.tpfinal.osuti.ui.login.LoginActivity;
 import com.tpfinal.osuti.ui.turnos.TurnoDialog;
@@ -26,6 +29,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.List;
 
 import static com.tpfinal.osuti.ui.fragments.AlertDialogFragment.ID_LONG;
 
@@ -97,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements TurnosFragment.On
     public void onDialogPositiveClick(DialogFragment dialog, long idItem) {
         TurnosViewModel mTurnoViewModel = ViewModelProviders.of(this).get(TurnosViewModel.class);
         mTurnoViewModel.deleteItemById(idItem);
+        Log.d("TURNO DELETE", String.format("Este es el idItem: %d", idItem));
+        AppRepository appRepository = new AppRepository(getApplication());
+        appRepository.deleteTurnoById(idItem);
         Toast.makeText(this, getString(R.string.message_delete), Toast.LENGTH_SHORT).show();
     }
 

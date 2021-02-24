@@ -131,7 +131,7 @@ public class TurnoDialog extends DialogFragment {
         };
 
         /* SETEO DE CAMPO DE ESPECIALIDADES */
-        String[] especialidades = {"Clinico/Generalista", "Traumatologia", "Ginecologia", "Urologia", "Neurologia",
+        String[] especialidades = {"Clinico", "Traumatologia", "Ginecologia", "Urologia", "Neurologia",
                 "Alergia e Inmunologia", "Bioquimica", "Cardiologia", "Cirugía General", "Gastroenterologia",
                 "Infectologia", "Odontologia" };
 
@@ -193,11 +193,10 @@ public class TurnoDialog extends DialogFragment {
                         @Override
                         public void onResultInsert(Long turnos) {
                             Toast.makeText(view.getContext(),"EL turno fue correctamente creado.",Toast.LENGTH_LONG).show();
-
                         }
 
                         @Override
-                        public List<Turno> onResultSearch(List<Turno> turnos) { return null;}
+                        public List<Turno> onResultSearch(List<Turno> turnos) { return null; }
                     };
 
                     mAppRepository.insertTurno(turno, callback1);
