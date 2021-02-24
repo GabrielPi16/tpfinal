@@ -22,6 +22,8 @@ import com.tpfinal.osuti.MapsActivity;
 import com.tpfinal.osuti.R;
 import com.tpfinal.osuti.models.Prestador;
 import com.tpfinal.osuti.models.Turno;
+import com.tpfinal.osuti.repository.AppRepository;
+import com.tpfinal.osuti.repository.callback.OnPrestadorResultCallback;
 import com.tpfinal.osuti.ui.turnos.TurnosAdapter;
 import com.tpfinal.osuti.ui.turnos.TurnosViewModel;
 
@@ -68,7 +70,7 @@ public class PrestadorFragment extends Fragment {
 
 
         AutoCompleteTextView autoEspecialidad = (AutoCompleteTextView) view.findViewById(R.id.fgPrestador_autocomplete);
-        String[] especialidades = {"Clinico/Generalista", "Traumatologia", "Ginecologia", "Urologia", "Neurologia",
+        String[] especialidades = {"Clinico", "Traumatologia", "Ginecologia", "Urologia", "Neurologia",
                 "Alergia e Inmunologia", "Bioquimica", "Cardiologia", "Cirugía General", "Gastroenterologia",
                 "Infectologia", "Odontologia" };
 
@@ -84,8 +86,22 @@ public class PrestadorFragment extends Fragment {
                 mEspecialidad = String.format("%s", parent.getItemAtPosition(position));
                 Log.d("PRESTADOR.ESPECIALIDAD", mEspecialidad);
 
+                AppRepository mAppRepository = new AppRepository(getActivity().getApplication());
+                OnPrestadorResultCallback callback = new OnPrestadorResultCallback() {
+                    @Override
+                    public void onResultInsert(Long prestador_id) { }
+
+                    @Override
+                    public void onResultSearch(List<Prestador> prestadores) {
+                        setListData(prestadores);
+                    }
+
+                    @Override
+                    public void onResultSearchId(Prestador prestador) { }
+                };
+
                 /* SETEO DE CAMPO DE PROFESIONALES */
-                //mAppRepository.buscarPrestadoresPorEspecialidad(mEspecialidad, callback);
+                mAppRepository.buscarPrestadoresPorEspecialidad(mEspecialidad, callback);
             }
         });
 
